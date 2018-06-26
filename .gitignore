@@ -1,0 +1,15 @@
+# eclipse project file
+.settings/
+.classpath
+.project
+
+#IntelliJ
+*.iml
+.idea/
+
+
+#Gradle
+.gradletasknamecache
+.gradle/
+build/
+bin/
