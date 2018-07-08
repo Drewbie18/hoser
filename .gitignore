@@ -13,3 +13,6 @@
 .gradle/
 build/
 bin/
+
+#Image Extractor
+vlc/
