@@ -6,29 +6,22 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import uk.co.caprica.vlcj.binding.LibVlc;
-import uk.co.caprica.vlcj.player.MediaPlayerFactory;
-import uk.co.caprica.vlcj.player.ModuleDescription;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
+import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.List;
 
 public class FilterTests {
 
     Logger logger = LogManager.getRootLogger();
 
-    @Test
-    public void getVlcFilters(){
-
-        MediaPlayerFactory factory = new MediaPlayerFactory();
-
-        List<ModuleDescription> audioFilters = factory.getAudioFilters();
-        List<ModuleDescription> videoFilters = factory.getVideoFilters();
-
-    }
+    static final String SAMPLE = "SampleVideo_1280x720_1mb.mp4";
 
     @Test
-    public void loadNativeLibs(){
+    public void playMedia(){
 
         File file = new File("src/main/resources/vlc");
         String vlcPath = file.getAbsolutePath();
@@ -40,19 +33,25 @@ public class FilterTests {
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), vlcPath);
         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
 
+       EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
 
-        MediaPlayerFactory factory = new MediaPlayerFactory();
-
-        List<ModuleDescription> audioFilters = factory.getAudioFilters();
-        List<ModuleDescription> videoFilters = factory.getVideoFilters();
-
-        videoFilters.forEach(moduleDescription -> {
-            logger.debug(moduleDescription.longName());
+        JFrame frame = new JFrame("A MEDIA PLAYER");
+        frame.setBounds(100,100,600,400);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                mediaPlayerComponent.release();
+                System.exit(0);
+            }
         });
+        frame.setContentPane(mediaPlayerComponent);
+        frame.setVisible(true);
 
-
-
-
+        File videoFile = new File("src/main/resources/videos/" + SAMPLE);
+        if(videoFile.isFile()){
+            logger.debug("File found now trying to play");
+            mediaPlayerComponent.getMediaPlayer().playMedia(videoFile.getAbsolutePath());
+        }
 
     }
 

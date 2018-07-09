@@ -13,14 +13,13 @@ repositories {
 
 dependencies {
 
-    //need to set the JNA version to 3.5.2 to work with VLCJ version 3.x
+    //need to set the JNA version to 4.5.x to work with VLCJ version 3.x
     implementation(group: 'net.java.dev.jna', name: 'jna', version: '4.5.1'){
         force = true
     }
     testImplementation(group: 'net.java.dev.jna', name: 'jna', version: '4.5.1'){
         force  = true
     }
-
     implementation(group: 'net.java.dev.jna', name: 'jna-platform', version: '4.5.1'){
         force = true
     }
