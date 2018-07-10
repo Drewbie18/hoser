@@ -6,7 +6,6 @@ import javax.swing.*;
 
 public class SimplePlayer {
 
-
     private final JFrame frame;
 
     private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
@@ -19,5 +18,6 @@ public class SimplePlayer {
         frame.setContentPane(mediaPlayerComponent);
         frame.setVisible(true);
         mediaPlayerComponent.getMediaPlayer().playMedia(filePath);
+
     }
 }
