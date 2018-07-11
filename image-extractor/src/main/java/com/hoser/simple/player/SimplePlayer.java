@@ -30,11 +30,6 @@ public class SimplePlayer {
                         System.out.println("The media is playing");
                         super.playing(mediaPlayer);
                         frame.setTitle("A FUCKING MEDIA PLAYER");
-
-
-                        File imageFile = new File("C:\\workspaces\\hoser\\images\\image-3.png");
-                        mediaPlayer.saveSnapshot(imageFile);
-
                     }
 
                     @Override
@@ -69,20 +64,17 @@ public class SimplePlayer {
         File imageFile = new File("C:\\workspaces\\hoser\\images\\image-3.png");
         player.saveSnapshot(imageFile);
         System.out.println("passed play command!");
-/*
+
+        //TODO use events and Java concurrent tools to replace this!
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-*/
-
-
-
     }
 
-    private void skip(MediaPlayer player){
+    private void skip(MediaPlayer player) {
         player.skip(2000);
         System.out.println("Skipped 2");
         player.pause();
